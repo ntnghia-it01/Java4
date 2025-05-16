@@ -14,14 +14,19 @@
 <body>
 	<div class="container">
 		<div class="col-6 offset-3 p-3 text-center">
-			<form>
+		<!-- action => Đường dẫn url   -->
+		<!-- method => GET || POST -->
+		<!-- method == GET => Func doGet trong Servlet se duoc chay -->
+			<form action="${pageContext.request.contextPath}/login"
+				method="POST">
 				<div class="mb-3 text-start">
 				  <label class="form-label">Tên tài khoản</label>
-				  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Tên tài khoản">
+				  <input name="username" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tên tài khoản">
+				  <small class="text-danger">${errUsername}</small>
 				</div>
 				<div class="mb-3 text-start">
 				  <label class="form-label">Mật khẩu</label>
-				  <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Mật khẩu">
+				  <input name="password" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Mật khẩu">
 				</div>
 				
 				<button type="submit" class="btn btn-primary">Đăng nhập</button>
