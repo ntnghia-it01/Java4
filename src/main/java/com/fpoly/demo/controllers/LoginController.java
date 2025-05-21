@@ -22,20 +22,6 @@ public class LoginController extends HttpServlet {
 		String username = req.getParameter("username"); // => ""
 		String password = req.getParameter("password");
 
-		System.out.println(String.format("Username: %s", username));
-		System.out.println("Password: " + password);
-
-//		Tên tài khoản và mật khẩu bắt buộc nhập 
-
-//		"                        "
-
-//		isEmpty => Kiểm tra chuỗi rỗng hoàn toàn == "" => true <> "    " => false
-//		isBlank => trim() => isEmpty 
-
-//		Thực hiện kiểm tra điều kiện 
-//		Nếu lỗi truyền 1 attr qua view bằng key errUsername 
-//		Hiển thị lỗi này lên view
-
 		if (username.isBlank()) {
 			req.setAttribute("errUsername", "Tên tài khoản bắt buộc nhập ");
 		}
