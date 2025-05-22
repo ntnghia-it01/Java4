@@ -22,7 +22,8 @@
 						class="form-control"
 						placeholder="MSSV"
 						name="code"
-						value="${code}">
+						value="${student.code}">
+					<small class="text-danger">${student.errors.errCode}</small>
 				</div>
 				<div class="mb-3 text-start">
 					<label class="form-label">Họ và tên</label>
