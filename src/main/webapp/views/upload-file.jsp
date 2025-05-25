@@ -21,6 +21,7 @@
 				enctype="multipart/form-data">
 				<div class="mb-3 text-start">
 				  <label class="form-label">Image</label>
+				  <!-- audio/*  -->
 				  <input name="image" type="file" multiple accept="image/*" class="form-control">
 				</div>
 				
@@ -35,3 +36,4 @@
 		crossorigin="anonymous"></script>
 </body>
 </html>
+
