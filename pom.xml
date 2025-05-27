@@ -43,6 +43,22 @@
 	    <version>1.2</version>
 	</dependency>
 	
+	<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
+	<dependency>
+	    <groupId>com.microsoft.sqlserver</groupId>
+	    <artifactId>mssql-jdbc</artifactId>
+	    <version>12.10.0.jre11</version>
+	    <scope>compile</scope>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-core</artifactId>
+	    <version>7.0.0.Final</version>
+	    <type>pom</type>
+	</dependency>
+	
 	
   </dependencies>
   
