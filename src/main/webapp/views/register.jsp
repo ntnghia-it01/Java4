@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,22 +15,29 @@
 <body>
 	<div class="container">
 		<div class="col-6 offset-3 p-3 text-center">
-			<form>
+			<form method="POST"
+				action="${pageContext.request.contextPath}/register">
 				<div class="mb-3 text-start">
 				  <label class="form-label">Tên tài khoản</label>
-				  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Tên tài khoản">
+				  <input value="${user.username}" name="username" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tên tài khoản">
+				  <c:if test="${user.errors.errUsername != null}">
+				  	<small class="text-danger">${user.errors.errUsername}</small>
+				  </c:if>
 				</div>
 				<div class="mb-3 text-start">
 				  <label class="form-label">Mật khẩu</label>
-				  <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Mật khẩu">
+				  <input value="${user.password}" name="password" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Mật khẩu">
+				  <small class="text-danger">${user.errors.errPassword}</small>
 				</div>
 				<div class="mb-3 text-start">
 				  <label class="form-label">Họ và tên</label>
-				  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Họ và tên">
+				  <input value="${user.name}" name="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Họ và tên">
+				  <small class="text-danger">${user.errors.errName}</small>
 				</div>
 				<div class="mb-3 text-start">
-				  <label class="form-label">Số điện thoại</label>
-				  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Số điện thoại">
+				  <label class="form-label">Email</label>
+				  <input value="${user.email}" name="email" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Email">
+				  <small class="text-danger">${user.errors.errEmail}</small>
 				</div>
 				
 				<button type="submit" class="btn btn-primary">Đăng ký</button>

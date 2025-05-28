@@ -2,6 +2,7 @@ package com.fpoly.demo.dao;
 
 import java.util.List;
 
+import com.fpoly.demo.config.EntityManagerConfig;
 import com.fpoly.demo.entities.UserEntity;
 
 import jakarta.persistence.EntityManager;
@@ -61,9 +62,8 @@ public class UserDAO {
 		return userEntity;
 	}
 
-	public boolean insert(UserEntity userEntity) {
-		EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("dbConnect");
-		EntityManager entityManager = managerFactory.createEntityManager();
+	public static boolean insert(UserEntity userEntity) {
+		EntityManager entityManager = EntityManagerConfig.getEntityManager();
 
 		if (!entityManager.getTransaction().isActive()) {
 			entityManager.getTransaction().begin();
@@ -74,10 +74,8 @@ public class UserDAO {
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
-			entityManager.close();
 			return false;
 		}
-		entityManager.close();
 		return true;
 	}
 
