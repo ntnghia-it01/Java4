@@ -11,12 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.fpoly.demo.beans.StudentBean;
+import com.fpoly.demo.config.EntityManagerConfig;
 
 @WebServlet("/add-student")
 public class AddStudentController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		EntityManagerConfig.getEntityManager();
+		EntityManagerConfig.getEntityManager();
+		EntityManagerConfig.getEntityManager();
+		EntityManagerConfig.getEntityManager();
 
 		req.getRequestDispatcher("/views/add-student.jsp").forward(req, resp);
 	}

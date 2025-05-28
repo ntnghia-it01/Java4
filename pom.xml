@@ -29,20 +29,6 @@
 	    <scope>provided</scope>
 	</dependency>
 	
-	<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
-	<dependency>
-	    <groupId>commons-beanutils</groupId>
-	    <artifactId>commons-beanutils</artifactId>
-	    <version>1.10.1</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
-	<dependency>
-	    <groupId>javax.servlet</groupId>
-	    <artifactId>jstl</artifactId>
-	    <version>1.2</version>
-	</dependency>
-	
 	<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
 	<dependency>
 	    <groupId>com.microsoft.sqlserver</groupId>
@@ -55,9 +41,23 @@
 	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-core</artifactId>
-	    <version>7.0.0.Final</version>
-	    <type>pom</type>
+	    <version>6.5.2.Final</version>
 	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+	<dependency>
+	    <groupId>commons-beanutils</groupId>
+	    <artifactId>commons-beanutils</artifactId>
+	    <version>1.9.4</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>jstl</artifactId>
+	    <version>1.2</version>
+	</dependency>
+
 	
 	
   </dependencies>
