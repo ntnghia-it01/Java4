@@ -13,7 +13,7 @@ public class UserDAO {
 		EntityManager entityManager = EntityManagerConfig.getEntityManager();
 
 		String sqlQueryNative = "SELECT * FROM users";
-		Query query = entityManager.createNativeQuery(sqlQueryNative);
+		Query query = entityManager.createNativeQuery(sqlQueryNative, UserEntity.class);
 
 		return query.getResultList();
 	}
@@ -23,7 +23,7 @@ public class UserDAO {
 
 		String sqlQuery = "SELECT * FROM users WHERE username='" + username + "'";
 
-		Query query = entityManager.createNativeQuery(sqlQuery);
+		Query query = entityManager.createNativeQuery(sqlQuery, UserEntity.class);
 
 		return (UserEntity) query.getSingleResult();
 	}

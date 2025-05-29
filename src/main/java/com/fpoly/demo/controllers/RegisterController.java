@@ -44,6 +44,10 @@ public class RegisterController extends HttpServlet {
 				userEntity.setStatus(1);
 
 				UserDAO.insert(userEntity);
+
+//				chuyển trang
+				resp.sendRedirect(req.getContextPath() + "/users");
+				return;
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
