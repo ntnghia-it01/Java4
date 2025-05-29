@@ -6,58 +6,31 @@ import com.fpoly.demo.config.EntityManagerConfig;
 import com.fpoly.demo.entities.UserEntity;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.Query;
 
 public class UserDAO {
-	public List<UserEntity> findAll() {
-//		Nạp dữ liệu config từ file persistence vào EntityManager 
-		EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("dbConnect");
-//		Thực hiện kết nối đến sql server 
-		EntityManager entityManager = managerFactory.createEntityManager();
+	public static List<UserEntity> findAll() {
+		EntityManager entityManager = EntityManagerConfig.getEntityManager();
 
-//		Thực thi câu lệnh sql được gọi theo thông tin của entity 
-//		String sqlQuery = "SELECT * FROM UserEntity";
-//		entityManager.createQuery("sqlQuery");
-
-//		Thực thi câu lệnh sql được gọi theo thông tin của db 
-//		Copy trong sql ra dung được 
 		String sqlQueryNative = "SELECT * FROM users";
 		Query query = entityManager.createNativeQuery(sqlQueryNative);
 
-//		Ngắt kết nối 
-		entityManager.close();
-
-		return query.getResultList(); // danh sách
+		return query.getResultList();
 	}
 
-	public UserEntity findByUsername(String username) {
-//		Nạp dữ liệu config từ file persistence vào EntityManager 
-		EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("dbConnect");
-//		Thực hiện kết nối đến sql server 
-		EntityManager entityManager = managerFactory.createEntityManager();
+	public static UserEntity findByUsername(String username) {
+		EntityManager entityManager = EntityManagerConfig.getEntityManager();
 
 		String sqlQuery = "SELECT * FROM users WHERE username='" + username + "'";
 
 		Query query = entityManager.createNativeQuery(sqlQuery);
 
-//		Ngắt kết nối 
-		entityManager.close();
-		return (UserEntity) query.getSingleResult(); // 1 đối tượng
+		return (UserEntity) query.getSingleResult();
 	}
 
-	public UserEntity findById(int id) {
-		EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("dbConnect");
-		EntityManager entityManager = managerFactory.createEntityManager();
-
-//		Truyền vào cấu trúc entity mà muốn chuyển đổi dữ liệu 
+	public static UserEntity findById(int id) {
+		EntityManager entityManager = EntityManagerConfig.getEntityManager();
 		UserEntity userEntity = entityManager.find(UserEntity.class, id);
-//		Trả về 2 giá
-//		Nếu tìm thấy thông tin entity => trả về 1 đối tượng entity 
-//		Nếu không tim thấy => null;
-
-		entityManager.close();
 
 		return userEntity;
 	}
@@ -79,9 +52,8 @@ public class UserDAO {
 		return true;
 	}
 
-	public boolean update(UserEntity userEntity) {
-		EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("dbConnect");
-		EntityManager entityManager = managerFactory.createEntityManager();
+	public static boolean update(UserEntity userEntity) {
+		EntityManager entityManager = EntityManagerConfig.getEntityManager();
 
 		if (!entityManager.getTransaction().isActive()) {
 			entityManager.getTransaction().begin();
@@ -92,16 +64,13 @@ public class UserDAO {
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
-			entityManager.close();
 			return false;
 		}
-		entityManager.close();
 		return true;
 	}
 
-	public boolean delete(UserEntity userEntity) {
-		EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("dbConnect");
-		EntityManager entityManager = managerFactory.createEntityManager();
+	public static boolean delete(UserEntity userEntity) {
+		EntityManager entityManager = EntityManagerConfig.getEntityManager();
 
 		if (!entityManager.getTransaction().isActive()) {
 			entityManager.getTransaction().begin();
@@ -112,10 +81,8 @@ public class UserDAO {
 			entityManager.getTransaction().commit();
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
-			entityManager.close();
 			return false;
 		}
-		entityManager.close();
 		return true;
 	}
 }
