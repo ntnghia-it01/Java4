@@ -21,7 +21,7 @@
   </build>
   
   <dependencies>
-  	<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+  <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 	<dependency>
 	    <groupId>org.projectlombok</groupId>
 	    <artifactId>lombok</artifactId>
@@ -57,9 +57,6 @@
 	    <artifactId>jstl</artifactId>
 	    <version>1.2</version>
 	</dependency>
-
-	
-	
   </dependencies>
   
 </project>

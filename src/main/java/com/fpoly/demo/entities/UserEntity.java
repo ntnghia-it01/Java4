@@ -34,7 +34,6 @@ public class UserEntity {
 	private String email;
 
 	@Column(name = "name", nullable = false, columnDefinition = "nvarchar(50)")
-//	Kiểu dữ liệu nvarchar 
 	private String name;
 
 	@Column(name = "role", nullable = false)
@@ -45,4 +44,16 @@ public class UserEntity {
 
 	@OneToMany(mappedBy = "userEntity")
 	List<FavouritesEntity> favouritesEntities;
+
+	public UserEntity(int id, String username, String password, String email, String name, int role, int status) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.name = name;
+		this.role = role;
+		this.status = status;
+	}
+
 }
