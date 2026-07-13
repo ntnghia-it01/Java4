@@ -11,7 +11,8 @@
   <body>
     <div class="container">
     	<div class="col-6 offset-6">
-    		<form method="post" action="${pageContext.request.contextPath}/register">
+    		<form method="post"
+    			action="${pageContext.request.contextPath}/register">
     			<div class="mb-3">
 				  <label class="form-label">Email</label>
 				  <input type="text" class="form-control" name="email">
