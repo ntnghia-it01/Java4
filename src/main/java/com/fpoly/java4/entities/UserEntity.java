@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity {
 	@Id //Khoá chính 
 	@Column(name = "id") // Đăng ký tên cột tương ứng để nhận gía trị 
@@ -34,8 +34,8 @@ public class UserEntity {
 	@Column(name = "status", nullable = false)
 	private int status = 1;
 	
-	@OneToMany(mappedBy = "userEntity")
-	private List<VideoEnity> videoEnities;
+//	@OneToMany(mappedBy = "userEntity")
+//	private List<VideoEnity> videoEnities;
 }
 
 

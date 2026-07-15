@@ -22,7 +22,7 @@ public class UserDAO {
 			EntityManager manager = factory.createEntityManager();
 			
 //			SQL Script 
-			String sql = "SELECT * FROM user";
+			String sql = "SELECT * FROM users";
 			
 //			JPQL
 //			String sqlJPQL = "SELECT user FROM UserEntity user";
@@ -109,7 +109,7 @@ public class UserDAO {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("dbConnect");
 		EntityManager manager = factory.createEntityManager();
 		try {
-			String sql = "SELECT * FROM user WHERE email=?";
+			String sql = "SELECT * FROM users WHERE email=?";
 			
 //			JPQL = "SELECT u FROM UserEntity u WHERE u.email=?";
 			
@@ -125,5 +125,27 @@ public class UserDAO {
 		}
 		
 		return false;
+	}
+//	Overload => Nạp chồng 
+	public UserEntity getUserByEmail(String email) {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("dbConnect");
+		EntityManager manager = factory.createEntityManager();
+		try {
+			String sql = "SELECT * FROM users WHERE email=?";
+			
+//			JPQL = "SELECT u FROM UserEntity u WHERE u.email=?";
+			
+			Query query = manager.createNativeQuery(sql, UserEntity.class);
+			query.setParameter(1, email);
+			
+			UserEntity userEntity = (UserEntity) query.getSingleResult();
+			
+			return userEntity;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }

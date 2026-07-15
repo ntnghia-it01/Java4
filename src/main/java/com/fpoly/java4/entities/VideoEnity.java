@@ -8,20 +8,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-@Table(name = "video")
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@Data
+//@Entity
+//@Table(name = "video")
 public class VideoEnity {
 
-	@ManyToOne
-	@JoinColumn(name = "channel_id")
-	private UserEntity userEntity;
-	
-	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private Category category;
+//	@ManyToOne
+//	@JoinColumn(name = "channel_id")
+//	private UserEntity userEntity;
+//	
+//	@ManyToOne
+//	@JoinColumn(name = "category_id")
+//	private Category category;
 }
 // Bắt buộc phải có manytoone
 // OneToMany có thể khai báo hay không cũng được

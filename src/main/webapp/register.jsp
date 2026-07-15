@@ -10,7 +10,7 @@
   </head>
   <body>
     <div class="container">
-    	<div class="col-6 offset-6">
+    	<div class="col-6 offset-3">
     		<form method="post"
     			action="${pageContext.request.contextPath}/register">
     			<div class="mb-3">
