@@ -148,4 +148,18 @@ public class UserDAO {
 		
 		return null;
 	}
+	
+	public UserEntity getUserById(int id) {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("dbConnect");
+		EntityManager manager = factory.createEntityManager();
+		try {
+			UserEntity userEntity = manager.find(UserEntity.class, id);
+			
+			return userEntity;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }

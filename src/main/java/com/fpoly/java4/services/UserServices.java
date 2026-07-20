@@ -5,6 +5,9 @@ import com.fpoly.java4.beans.RegisterBean;
 import com.fpoly.java4.dao.UserDAO;
 import com.fpoly.java4.entities.UserEntity;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+
 public class UserServices {
 
 //	return kiểu gì? boolean || String
@@ -42,7 +45,7 @@ public class UserServices {
 		}
 	}
 	
-	public boolean login(LoginBean bean) {
+	public boolean login(LoginBean bean, HttpServletResponse response) {
 //		Kiểm tra có đúng email trong db hay không
 //		Nếu đúng => Có đối tượng user entity => Có password 
 //		Lấy password trong entity so sánh với password ở bean
@@ -57,6 +60,19 @@ public class UserServices {
 //			#2 => Luôn không có lỗi 
 //			"".equals(null)
 			if(!bean.getPassword().equals(userEntity.getPassword())) return false;
+			
+			
+//			Lưu user id và role vào cookies 
+			Cookie userIdCookie = new Cookie("userId", String.valueOf(userEntity.getId()));
+			userIdCookie.setPath("/");
+			userIdCookie.setMaxAge(60 * 60 * 3);
+			
+			Cookie userRoleCookie = new Cookie("userRole", String.valueOf(userEntity.getRole()));
+			userRoleCookie.setPath("/");
+			userRoleCookie.setMaxAge(60 * 60 * 3);
+			
+			response.addCookie(userIdCookie);
+			response.addCookie(userRoleCookie);
 			
 			return true;
 				

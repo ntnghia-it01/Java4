@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.fpoly.java4.beans.LoginBean;
+import com.fpoly.java4.services.UserServices;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,7 +33,14 @@ public class LoginController extends HttpServlet{
 			
 //			Không có lỗi dữ liệu đầu vào
 			if(bean.getErrors().isEmpty()) {
+				UserServices userServices = new UserServices();
+				boolean login = userServices.login(bean, resp);
+				if(login) {
+					resp.sendRedirect(req.getContextPath() + "/");
+					return;
+				}
 				
+				req.setAttribute("errLogin", "Đăng nhập thất bại");
 			}
 			
 		}catch (Exception e) {
