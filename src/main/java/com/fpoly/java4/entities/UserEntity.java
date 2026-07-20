@@ -34,8 +34,12 @@ public class UserEntity {
 	@Column(name = "status", nullable = false)
 	private int status = 1;
 	
-//	@OneToMany(mappedBy = "userEntity")
-//	private List<VideoEnity> videoEnities;
+	@OneToMany(mappedBy = "userEntity")
+	private List<VideoEnity> videoEnities;
+//	Có thể khai báo hay không cũng được tuỳ vào yêu cầu dự án
+//	Muốn khai báo thì ở đối con phải được khai báo manytoone rồi 
+//	Giá trị bên trong ontomany là tên biến của đối tượng hiện tại
+//	đang khai báo bên trong đối tượng con
 }
 
 

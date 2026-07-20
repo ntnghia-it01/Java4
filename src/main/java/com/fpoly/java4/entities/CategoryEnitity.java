@@ -1,9 +1,12 @@
 package com.fpoly.java4.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Category {
+public class CategoryEnitity {
 	@Id //Khoá chính 
 	@Column(name = "id") // Đăng ký tên cột tương ứng để nhận gía trị 
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Giá trị tự tăng lên 1 đv 
@@ -20,6 +23,9 @@ public class Category {
 	private String name;
 	@Column(name = "status", nullable = false)
 	private int status = 1;
+	
+	@OneToMany(mappedBy = "categoryEnitity")
+	private List<VideoEnity> videoEnities;
 }
 
 

@@ -1,6 +1,10 @@
 package com.fpoly.java4.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -8,26 +12,44 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@Data
-//@Entity
-//@Table(name = "video")
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Entity
+@Table(name = "video")
 public class VideoEnity {
-
-//	@ManyToOne
-//	@JoinColumn(name = "channel_id")
-//	private UserEntity userEntity;
-//	
-//	@ManyToOne
-//	@JoinColumn(name = "category_id")
-//	private Category category;
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name = "title", nullable = false, columnDefinition = "NVARCHAR(255)")
+	private String title;
+	
+	@Column(name = "description", nullable = false, columnDefinition = "NVARCHAR(MAX)")
+	private String description;
+	
+	@Column(name = "video_url", nullable = false, length = 1000)
+	private String videoURL;
+	
+	@Column(name = "thumbnail_url", nullable = false, length = 1000)
+	private String thumnailURL;
+	
+	@Column(name = "approval_status", nullable = false)
+	private int status = 1;
+	
+	@ManyToOne
+	@JoinColumn(name = "channel_id")
+	private UserEntity userEntity;
+//	Chỉ đến khoá ngoại trong db
+// 	Luôn đi cùng với joincolumn 
+//	Giá trị bên trong joincolumn là tên cột khoá ngoại
+//	Khi gặp khoá ngoại thì bắt buộc sử dụng 
+	
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private CategoryEnitity categoryEnitity;
 }
-// Bắt buộc phải có manytoone
-// OneToMany có thể khai báo hay không cũng được
-
-//Video n - 1 User
-
 //create table video (
 //	    id int identity(1,1) primary key,
 //	    channel_id int not null,
