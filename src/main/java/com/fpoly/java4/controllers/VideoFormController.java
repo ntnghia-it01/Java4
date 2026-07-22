@@ -1,10 +1,13 @@
 package com.fpoly.java4.controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.fpoly.java4.beans.VideoFormBean;
+import com.fpoly.java4.dao.CategoryDAO;
+import com.fpoly.java4.entities.CategoryEnitity;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -19,7 +22,12 @@ import jakarta.servlet.http.Part;
 public class VideoFormController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		CategoryDAO categoryDAO = new CategoryDAO();
+		List<CategoryEnitity> categoryEnitities = categoryDAO.getList();
+		
+		req.setAttribute("categories", categoryEnitities);
+		
+		
 		req.getRequestDispatcher("/channel/video-form.jsp").forward(req, resp);
 	}
 	
@@ -36,7 +44,6 @@ public class VideoFormController extends HttpServlet{
 			Part image = req.getPart("image");
 			bean.setVideo(video);
 			bean.setImage(image);
-			
 			
 			req.setAttribute("bean", bean);
 			

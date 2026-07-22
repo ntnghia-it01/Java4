@@ -24,17 +24,39 @@ public class VideoFormBean {
 		Map<String, String> errors = new HashMap<String, String>();
 		
 //		Tiêu đề không rỗng, có ít nhất 3 từ
+		if(this.title.trim().split(" ").length < 3) {
+			errors.put("errTitle", "Tiêu đề phải có ít nhất 3 từ");
+		}
 //		Mô tả không rỗng, có ít nhất 10 từ
+		if(this.desc.trim().split(" ").length < 10) {
+			errors.put("errDesc", "Mô tả phải có ít nhất 10 từ");
+		}
 //		Danh mục bắt buộc chọn
+		if(this.category < 1) {
+			errors.put("errCat", "Danh mục bắt buộc chọn");
+		}
 //		Trạng thái bắt buộc chọn
+		if(this.status != 1 || this.status != 2) {
+			errors.put("errStatus", "Trạng thái bắt buộc chọn");
+		}
 		
 //		Video
 //		- Phải đúng định dạng video 
 //		- Dung lượng không quá 1GB
+		if(!this.video.getContentType().startsWith("video/")) {
+			errors.put("errVideo", "Nội dung tải lên phải là video");
+		}else if(this.video.getSize() > 1024 * 1024 * 1024) {
+			errors.put("errVideo", "Nội dung tải lên không được quá 10GB");
+		}
 		
 //		Image
 //		- Phải đúng định dạng ảnh
 //		- Dung lượng ảnh không quá 5MB
+		if(!this.image.getContentType().startsWith("image/")) {
+			errors.put("errImage", "Nội dung tải lên phải là ảnh");
+		}else if(this.image.getSize() > 1024 * 1024 * 5) {
+			errors.put("errImage", "Nội dung tải lên không được quá 5MB");
+		}
 		
 		return errors;
 	}

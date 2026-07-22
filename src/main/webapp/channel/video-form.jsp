@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!doctype html>
 <html lang="en">
   <head>
@@ -16,43 +19,51 @@
     			enctype="mutilpart/form-data">
     			<div class="mb-3">
 				  <label class="form-label">Tiêu đề</label>
-				  <input type="text" class="form-control" name="title">
+				  <input value="${bean.title}" type="text" class="form-control" name="title">
+				  <small class="text-danger">${bean.errors.errTitle}</small>
 				</div>
 				<div class="mb-3">
 				  <label class="form-label">Mô tả</label>
-				  <textarea class="form-control" rows="5" cols="" name="desc"></textarea>
+				  <textarea class="form-control" rows="5" cols="" name="desc">${bean.desc}</textarea>
+				  <small class="text-danger">${bean.errors.errDesc}</small>
 				</div>
 				<div class="mb-3">
 				  <label class="form-label">Danh mục</label>
 				  <select name="category" class="form-select" aria-label="Default select example">
-					  <option selected>-----------Chọn danh mục--------------</option>
-					  <option value="1">One</option>
-					  <option value="2">Two</option>
-					  <option value="3">Three</option>
+					  <option value="0" ${bean.category < 1 ? 'selected' : ''}>-----------Chọn danh mục--------------</option>
+					  
+					  <c:forEach items="${categories}" var="cat">
+					  	<option ${bean.category < cat.id ? 'selected' : ''} value="${cat.id}">${cat.name}</option>
+					  </c:forEach>
+					  
 					</select>
+					<small class="text-danger">${bean.errors.errCat}</small>
 				</div>
 				<div class="mb-3">
 				  <label for="formFile" class="form-label">Video file</label>
 				  <input class="form-control" type="file" accept="video/*" id="formFile" name="video">
+				  <small class="text-danger">${bean.errors.errVideo}</small>
 				</div>
 				<div class="mb-3">
 				  <label for="formFile" class="form-label">Poster file</label>
 				  <input class="form-control" type="file" accept="image/*" id="formFile" name="image">
+				  <small class="text-danger">${bean.errors.errImage}</small>
 				</div>
 				<div class="mb-3">
 				  <label for="formFile" class="form-label">Trạng thái</label>
 				  <div class="form-check">
-					  <input class="form-check-input" type="radio" name="status" value="1" id="radioDefault1">
+					  <input ${bean.status == 1 ? 'checked' : ''} class="form-check-input" type="radio" name="status" value="1" id="radioDefault1">
 					  <label class="form-check-label" for="radioDefault1">
 					    Chờ duyệt
 					  </label>
 					</div>
 					<div class="form-check">
-					  <input class="form-check-input" type="radio" name="status" value="2" id="radioDefault2" checked>
+					  <input ${bean.status == 2 ? 'checked' : ''} class="form-check-input" type="radio" name="status" value="2" id="radioDefault2">
 					  <label class="form-check-label" for="radioDefault2">
 					    Nháp
 					  </label>
 					</div>
+					<small class="text-danger">${bean.errors.errStatus}</small>
 				</div>
 				<input value="Thêm video" class="btn btn-primary" type="submit">
     		</form>
