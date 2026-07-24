@@ -31,4 +31,20 @@ public class CategoryDAO {
 		
 		return categoryEnitities;
 	}
+	
+//	Lấy chi tiết danh mục từ id 
+	public CategoryEnitity getCategoryById(int id) {
+		try {
+			EntityManagerFactory factory = Persistence.createEntityManagerFactory("dbConnect");
+			EntityManager manager = factory.createEntityManager();
+			
+			CategoryEnitity categoryEnitity = manager.find(CategoryEnitity.class, id);
+			
+			return categoryEnitity;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

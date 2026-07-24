@@ -65,6 +65,7 @@
 					</div>
 					<small class="text-danger">${bean.errors.errStatus}</small>
 				</div>
+				<small class="text-danger">${error}</small>
 				<input value="Thêm video" class="btn btn-primary" type="submit">
     		</form>
     	</div>

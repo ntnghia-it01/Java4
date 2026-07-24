@@ -8,6 +8,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import com.fpoly.java4.beans.VideoFormBean;
 import com.fpoly.java4.dao.CategoryDAO;
 import com.fpoly.java4.entities.CategoryEnitity;
+import com.fpoly.java4.services.VideoServices;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -46,6 +47,16 @@ public class VideoFormController extends HttpServlet{
 			bean.setImage(image);
 			
 			req.setAttribute("bean", bean);
+			
+			if(bean.getErrors().isEmpty()) {
+				VideoServices videoServices = new VideoServices();
+				boolean insertVideo = videoServices.createVideo(bean, req);
+				if(insertVideo) {
+					resp.sendRedirect(req.getContextPath() + "/channel/videos");
+					return;
+				}
+				req.setAttribute("error", "Thêm video thất bại");
+			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();

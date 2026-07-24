@@ -37,6 +37,11 @@ public class VideoEnity {
 	
 	@Column(name = "approval_status", nullable = false)
 	private int status = 1;
+//	Các trạng thái
+//	1 -> Chờ duyệt
+//	2 -> Nháp
+//	3 -> Công khai
+//	4 -> Từ chối
 	
 	@ManyToOne
 	@JoinColumn(name = "channel_id")
