@@ -30,7 +30,7 @@ public class CategoryEntity {
 	@Column(name = "status", nullable = false)
 	private int status = 1;
 	
-	@OneToMany(mappedBy = "categoryEnitity")
+	@OneToMany(mappedBy = "categoryEntity")
 	private List<VideoEntity> videoEntities;
 }
 

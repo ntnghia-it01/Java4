@@ -1,6 +1,11 @@
 package com.fpoly.java4.controllers;
 
 import java.io.IOException;
+import java.util.List;
+
+import com.fpoly.java4.dao.VideoDAO;
+import com.fpoly.java4.entities.VideoEntity;
+import com.fpoly.java4.utils.Utils;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,6 +22,13 @@ public class VideoListController extends HttpServlet{
 //		Channel ID lấy ở đâu ra???
 		
 //		Đoạn code lấy userid từ cookie ra sẽ được dùng rất nhiều 
+		
+		int userId = Integer.parseInt(Utils.getCookieByName("userId", req));
+
+		VideoDAO videoDAO = new VideoDAO();
+		List<VideoEntity> videoEntities = videoDAO.getList(userId);
+		
+		req.setAttribute("videos", videoEntities);
 		
 		req.getRequestDispatcher("/channel/videos").forward(req, resp);
 	}

@@ -10,6 +10,7 @@ import com.fpoly.java4.dao.VideoDAO;
 import com.fpoly.java4.entities.CategoryEntity;
 import com.fpoly.java4.entities.UserEntity;
 import com.fpoly.java4.entities.VideoEntity;
+import com.fpoly.java4.utils.Utils;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,15 +45,15 @@ public class VideoServices {
 			
 //			Lấy userID từ cookie => Dùng DAO để lấy được UserEntity
 			
-			Cookie[] cookies = request.getCookies();
+//			Cookie[] cookies = request.getCookies();
 			
-			String userID = "";
-			for(Cookie cookie : cookies) {
-				if(cookie.getName().equals("userId")) {
-					userID = cookie.getValue();
-					break;
-				}
-			}
+			String userID = Utils.getCookieByName("userId", request);
+//			for(Cookie cookie : cookies) {
+//				if(cookie.getName().equals("userId")) {
+//					userID = cookie.getValue();
+//					break;
+//				}
+//			}
 			
 			UserDAO userDAO = new UserDAO();
 //			Integer.parseInt(userID) => Có thể có lỗi xảy ra không?
@@ -64,7 +65,7 @@ public class VideoServices {
 //			bean.getCategory(); => ID
 			CategoryDAO categoryDAO = new CategoryDAO();
 			CategoryEntity categoryEntity = categoryDAO.getCategoryById(bean.getCategory());
-			videoEntity.setCategoryEnitity(categoryEntity);
+			videoEntity.setCategoryEntity(categoryEntity);
 			
 //			Tương tác vào DB => DAO
 			VideoDAO videoDAO = new VideoDAO();

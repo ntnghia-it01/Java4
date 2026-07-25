@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.fpoly.java4.dao.UserDAO;
 import com.fpoly.java4.entities.UserEntity;
+import com.fpoly.java4.utils.Utils;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -36,17 +37,11 @@ public class AuthFilter implements Filter{
 			return;
 		}
 		
-		int userId = 0, role = 0;
 		
+		int userId = 0, role = 0;
 		try {
-			for(Cookie cookie : cookies) {
-				if(cookie.getName().equals("userId")) {
-					userId = Integer.parseInt(cookie.getValue());
-				}
-				if(cookie.getName().equals("userRole")) {
-					role = Integer.parseInt(cookie.getValue());
-				}
-			}
+			userId = Integer.parseInt(Utils.getCookieByName("userId", req));
+			role = Integer.parseInt(Utils.getCookieByName("userRole", req));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

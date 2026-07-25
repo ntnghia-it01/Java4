@@ -2,6 +2,7 @@ package com.fpoly.java4.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -43,7 +44,7 @@ public class VideoEntity {
 //	3 -> Công khai
 //	4 -> Từ chối
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "channel_id")
 	private UserEntity userEntity;
 //	Chỉ đến khoá ngoại trong db
@@ -51,9 +52,24 @@ public class VideoEntity {
 //	Giá trị bên trong joincolumn là tên cột khoá ngoại
 //	Khi gặp khoá ngoại thì bắt buộc sử dụng 
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private CategoryEntity categoryEntity;
+	
+	public String getStatusString() {
+		switch (this.status) {
+			case 1:
+				return "Chờ duyệt";
+			case 2:
+				return "Nháp";
+			case 3:
+				return "Công khai";
+			case 4:
+				return "Từ chối";
+			default:
+				return "";
+		}
+	}
 }
 //create table video (
 //	    id int identity(1,1) primary key,

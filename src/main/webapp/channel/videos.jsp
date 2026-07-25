@@ -25,15 +25,32 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr>
-		      <th scope="row">1</th>
-		      <td>Mark</td>
-		      <td>Otto</td>
-		      <td>@mdo</td>
-		      <td>Mark</td>
-		      <td>Otto</td>
-		      <td>@mdo</td>
-		    </tr>
+		  	<c:forEach items="${videos}" var="video">
+		  		<tr>
+			      <th scope="row">${video.id}</th>
+			      <td>${video.title}</td>
+			      <td>${video.categoryEntity.name}</td>
+			      <td>
+			      	<video 
+			      		width="100" 
+			      		height="70" 
+			      		controls 
+			      		poster="${pageContext.request.contextPath}${video.thumnailURL}">
+					  <source 
+					  	src="${pageContext.request.contextPath}${video.videoURL}" 
+					  	type="video/*">
+					</video>
+			      </td>
+			      <td>
+			      	<img 
+			      		src="${pageContext.request.contextPath}${video.thumnailURL}" 
+			      		width="100" 
+			      		height="70"/>
+			      </td>
+			      <td>${video.statusString}</td>
+			      <td>@mdo</td>
+			    </tr>
+		  	</c:forEach>
 		  </tbody>
 		</table>
 	</div>
