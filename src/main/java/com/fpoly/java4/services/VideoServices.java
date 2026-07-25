@@ -19,17 +19,17 @@ public class VideoServices {
 	public boolean createVideo(VideoFormBean bean, HttpServletRequest request) {
 		try {
 //			Lưu video => Lấy tên video
-			String extVideo = bean.getVideo().getContentType().split("/")[1]; 
+			String extVideo = bean.getVideoForm().getContentType().split("/")[1]; 
 			String fileNameVideo = String.valueOf(new Date().getTime()); 
-			String pathVideo =  "/videos/" + fileNameVideo + "." + extVideo; // Lưu DB 
+			String pathVideo =  "/assets/videos/" + fileNameVideo + "." + extVideo; // Lưu DB 
 			String pathContextVideo = request.getServletContext().getRealPath(pathVideo);
-			bean.getVideo().write(pathContextVideo);
+			bean.getVideoForm().write(pathContextVideo);
 //			Lưu ảnh => Lấy tên ảnh
-			String extImage = bean.getImage().getContentType().split("/")[1]; 
+			String extImage = bean.getImageForm().getContentType().split("/")[1]; 
 			String fileNameImage = String.valueOf(new Date().getTime()); 
-			String pathImage =  "/images/" + fileNameImage + "." + extImage; // Lưu DB
+			String pathImage =  "/assets/images/" + fileNameImage + "." + extImage; // Lưu DB
 			String pathContextImage = request.getServletContext().getRealPath(pathImage);
-			bean.getImage().write(pathContextImage);
+			bean.getImageForm().write(pathContextImage);
 			
 //			Chuyển dữ liệu từ bean => Entity
 			VideoEnity videoEnity = new VideoEnity();
@@ -66,6 +66,7 @@ public class VideoServices {
 			CategoryEnitity categoryEnitity = categoryDAO.getCategoryById(bean.getCategory());
 			videoEnity.setCategoryEnitity(categoryEnitity);
 			
+//			Tương tác vào DB => DAO
 			VideoDAO videoDAO = new VideoDAO();
 			return videoDAO.create(videoEnity);
 			

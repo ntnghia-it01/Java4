@@ -21,7 +21,8 @@ public class CategoryDAO {
 			
 			String sql = "SELECT * FROM category"; 
 			
-			Query query = manager.createNativeQuery(sql);
+//			manager.createNativeQuery => Trả về Object 
+			Query query = manager.createNativeQuery(sql, CategoryEnitity.class);
 			
 			categoryEnitities = query.getResultList();
 			

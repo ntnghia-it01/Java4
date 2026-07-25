@@ -23,8 +23,10 @@ public class CategoryEnitity {
 	@Column(name = "id") // Đăng ký tên cột tương ứng để nhận gía trị 
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Giá trị tự tăng lên 1 đv 
 	private int id;
+	
 	@Column(name = "name", nullable = false, columnDefinition = "nvarchar(255)")
 	private String name;
+	
 	@Column(name = "status", nullable = false)
 	private int status = 1;
 	

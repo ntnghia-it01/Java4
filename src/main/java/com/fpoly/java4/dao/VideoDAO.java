@@ -26,7 +26,7 @@ public class VideoDAO {
 			
 			String sql = "SELECT * FROM video"; 
 			
-			Query query = manager.createNativeQuery(sql);
+			Query query = manager.createNativeQuery(sql, VideoEnity.class);
 			
 			videoEnitities = query.getResultList();
 			
@@ -46,7 +46,7 @@ public class VideoDAO {
 			
 			String sql = "SELECT * FROM video WHERE channel_id=?"; 
 			
-			Query query = manager.createNativeQuery(sql);
+			Query query = manager.createNativeQuery(sql, VideoEnity.class);
 			query.setParameter(1, channelID);
 			
 			videoEnitities = query.getResultList();

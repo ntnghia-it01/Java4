@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.tomcat.util.json.JSONParser;
 
 import com.fpoly.java4.beans.VideoFormBean;
 import com.fpoly.java4.dao.CategoryDAO;
@@ -37,19 +38,27 @@ public class VideoFormController extends HttpServlet{
 		
 		try {
 			
+			CategoryDAO categoryDAO = new CategoryDAO();
+			List<CategoryEnitity> categoryEnitities = categoryDAO.getList();
+			
+			req.setAttribute("categories", categoryEnitities);
+			
 			VideoFormBean bean = new VideoFormBean();
 //			Convert dữ liệu nguyên thuỷ (số, chuỗi)
 			BeanUtils.populate(bean, req.getParameterMap());
 			
 			Part video = req.getPart("video");
 			Part image = req.getPart("image");
-			bean.setVideo(video);
-			bean.setImage(image);
+			bean.setVideoForm(video);
+			bean.setImageForm(image);
 			
 			req.setAttribute("bean", bean);
 			
+//			Xử lý lỗi ở phía UI => Bean 
+			
 			if(bean.getErrors().isEmpty()) {
 				VideoServices videoServices = new VideoServices();
+//				Kiểm tra các lỗi logic => Services 
 				boolean insertVideo = videoServices.createVideo(bean, req);
 				if(insertVideo) {
 					resp.sendRedirect(req.getContextPath() + "/channel/videos");

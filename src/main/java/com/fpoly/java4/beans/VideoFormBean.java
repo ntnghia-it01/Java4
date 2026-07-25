@@ -17,8 +17,8 @@ public class VideoFormBean {
 	private int category;
 	private int status;
 	
-	private Part video;
-	private Part image;
+	private Part videoForm;
+	private Part imageForm;
 	
 	public Map<String, String> getErrors(){
 		Map<String, String> errors = new HashMap<String, String>();
@@ -35,26 +35,27 @@ public class VideoFormBean {
 		if(this.category < 1) {
 			errors.put("errCat", "Danh mục bắt buộc chọn");
 		}
+
 //		Trạng thái bắt buộc chọn
-		if(this.status != 1 || this.status != 2) {
+		if(this.status != 1 && this.status != 2) {
 			errors.put("errStatus", "Trạng thái bắt buộc chọn");
 		}
 		
 //		Video
 //		- Phải đúng định dạng video 
 //		- Dung lượng không quá 1GB
-		if(!this.video.getContentType().startsWith("video/")) {
+		if(!this.videoForm.getContentType().startsWith("video/")) {
 			errors.put("errVideo", "Nội dung tải lên phải là video");
-		}else if(this.video.getSize() > 1024 * 1024 * 1024) {
+		}else if(this.videoForm.getSize() > 1024 * 1024 * 1024) {
 			errors.put("errVideo", "Nội dung tải lên không được quá 10GB");
 		}
 		
 //		Image
 //		- Phải đúng định dạng ảnh
 //		- Dung lượng ảnh không quá 5MB
-		if(!this.image.getContentType().startsWith("image/")) {
+		if(!this.imageForm.getContentType().startsWith("image/")) {
 			errors.put("errImage", "Nội dung tải lên phải là ảnh");
-		}else if(this.image.getSize() > 1024 * 1024 * 5) {
+		}else if(this.imageForm.getSize() > 1024 * 1024 * 5) {
 			errors.put("errImage", "Nội dung tải lên không được quá 5MB");
 		}
 		

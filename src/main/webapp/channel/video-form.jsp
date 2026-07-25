@@ -15,8 +15,8 @@
     <div class="container">
     	<div class="col-6 offset-3">
     		<form method="post"
-    			action="${pageContext.request.contextPath}/video-form"
-    			enctype="mutilpart/form-data">
+    			action="${pageContext.request.contextPath}/channel/video-form"
+    			enctype="multipart/form-data">
     			<div class="mb-3">
 				  <label class="form-label">Tiêu đề</label>
 				  <input value="${bean.title}" type="text" class="form-control" name="title">
@@ -33,7 +33,7 @@
 					  <option value="0" ${bean.category < 1 ? 'selected' : ''}>-----------Chọn danh mục--------------</option>
 					  
 					  <c:forEach items="${categories}" var="cat">
-					  	<option ${bean.category < cat.id ? 'selected' : ''} value="${cat.id}">${cat.name}</option>
+					  	<option ${bean.category == cat.id ? 'selected' : ''} value="${cat.id}">${cat.name}</option>
 					  </c:forEach>
 					  
 					</select>
