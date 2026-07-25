@@ -3,9 +3,9 @@ package com.fpoly.java4.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fpoly.java4.entities.CategoryEnitity;
+import com.fpoly.java4.entities.CategoryEntity;
 import com.fpoly.java4.entities.UserEntity;
-import com.fpoly.java4.entities.VideoEnity;
+import com.fpoly.java4.entities.VideoEntity;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -17,8 +17,8 @@ public class VideoDAO {
 //    - Hàm lấy danh sách video theo channel_id (user_id)
 //    - Thêm video vào db
 	
-	public List<VideoEnity> getList(){
-		List<VideoEnity> videoEnitities = new ArrayList<VideoEnity>();
+	public List<VideoEntity> getList(){
+		List<VideoEntity> videoEnitities = new ArrayList<VideoEntity>();
 		
 		try {
 			EntityManagerFactory factory = Persistence.createEntityManagerFactory("dbConnect");
@@ -26,7 +26,7 @@ public class VideoDAO {
 			
 			String sql = "SELECT * FROM video"; 
 			
-			Query query = manager.createNativeQuery(sql, VideoEnity.class);
+			Query query = manager.createNativeQuery(sql, VideoEntity.class);
 			
 			videoEnitities = query.getResultList();
 			
@@ -37,8 +37,8 @@ public class VideoDAO {
 		return videoEnitities;
 	}
 	
-	public List<VideoEnity> getList(int channelID){
-		List<VideoEnity> videoEnitities = new ArrayList<VideoEnity>();
+	public List<VideoEntity> getList(int channelID){
+		List<VideoEntity> videoEnitities = new ArrayList<VideoEntity>();
 		
 		try {
 			EntityManagerFactory factory = Persistence.createEntityManagerFactory("dbConnect");
@@ -46,7 +46,7 @@ public class VideoDAO {
 			
 			String sql = "SELECT * FROM video WHERE channel_id=?"; 
 			
-			Query query = manager.createNativeQuery(sql, VideoEnity.class);
+			Query query = manager.createNativeQuery(sql, VideoEntity.class);
 			query.setParameter(1, channelID);
 			
 			videoEnitities = query.getResultList();
@@ -58,7 +58,7 @@ public class VideoDAO {
 		return videoEnitities;
 	}
 	
-	public boolean create(VideoEnity videoEnity) {
+	public boolean create(VideoEntity videoEntity) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("dbConnect");
 		EntityManager manager = factory.createEntityManager();
 		try {
@@ -67,7 +67,7 @@ public class VideoDAO {
 				manager.getTransaction().begin();
 			}
 			
-			manager.persist(videoEnity);
+			manager.persist(videoEntity);
 			manager.getTransaction().commit();
 			
 			return true;

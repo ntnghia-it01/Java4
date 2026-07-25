@@ -3,7 +3,7 @@ package com.fpoly.java4.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fpoly.java4.entities.CategoryEnitity;
+import com.fpoly.java4.entities.CategoryEntity;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -12,8 +12,8 @@ import jakarta.persistence.Query;
 
 public class CategoryDAO {
 	
-	public List<CategoryEnitity> getList(){
-		List<CategoryEnitity> categoryEnitities = new ArrayList<CategoryEnitity>();
+	public List<CategoryEntity> getList(){
+		List<CategoryEntity> categoryEntities = new ArrayList<CategoryEntity>();
 		
 		try {
 			EntityManagerFactory factory = Persistence.createEntityManagerFactory("dbConnect");
@@ -22,26 +22,26 @@ public class CategoryDAO {
 			String sql = "SELECT * FROM category"; 
 			
 //			manager.createNativeQuery => Trả về Object 
-			Query query = manager.createNativeQuery(sql, CategoryEnitity.class);
+			Query query = manager.createNativeQuery(sql, CategoryEntity.class);
 			
-			categoryEnitities = query.getResultList();
+			categoryEntities = query.getResultList();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return categoryEnitities;
+		return categoryEntities;
 	}
 	
 //	Lấy chi tiết danh mục từ id 
-	public CategoryEnitity getCategoryById(int id) {
+	public CategoryEntity getCategoryById(int id) {
 		try {
 			EntityManagerFactory factory = Persistence.createEntityManagerFactory("dbConnect");
 			EntityManager manager = factory.createEntityManager();
 			
-			CategoryEnitity categoryEnitity = manager.find(CategoryEnitity.class, id);
+			CategoryEntity categoryEntity = manager.find(CategoryEntity.class, id);
 			
-			return categoryEnitity;
+			return categoryEntity;
 			
 		} catch (Exception e) {
 			e.printStackTrace();

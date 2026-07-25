@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "category")
-public class CategoryEnitity {
+public class CategoryEntity {
 	@Id //Khoá chính 
 	@Column(name = "id") // Đăng ký tên cột tương ứng để nhận gía trị 
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Giá trị tự tăng lên 1 đv 
@@ -31,7 +31,7 @@ public class CategoryEnitity {
 	private int status = 1;
 	
 	@OneToMany(mappedBy = "categoryEnitity")
-	private List<VideoEnity> videoEnities;
+	private List<VideoEntity> videoEntities;
 }
 
 

@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "video")
-public class VideoEnity {
+public class VideoEntity {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,7 +53,7 @@ public class VideoEnity {
 	
 	@ManyToOne
 	@JoinColumn(name = "category_id")
-	private CategoryEnitity categoryEnitity;
+	private CategoryEntity categoryEntity;
 }
 //create table video (
 //	    id int identity(1,1) primary key,

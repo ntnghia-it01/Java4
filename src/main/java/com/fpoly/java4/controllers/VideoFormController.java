@@ -8,7 +8,7 @@ import org.apache.tomcat.util.json.JSONParser;
 
 import com.fpoly.java4.beans.VideoFormBean;
 import com.fpoly.java4.dao.CategoryDAO;
-import com.fpoly.java4.entities.CategoryEnitity;
+import com.fpoly.java4.entities.CategoryEntity;
 import com.fpoly.java4.services.VideoServices;
 
 import jakarta.servlet.ServletException;
@@ -25,9 +25,9 @@ public class VideoFormController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		CategoryDAO categoryDAO = new CategoryDAO();
-		List<CategoryEnitity> categoryEnitities = categoryDAO.getList();
+		List<CategoryEntity> categoryEntities = categoryDAO.getList();
 		
-		req.setAttribute("categories", categoryEnitities);
+		req.setAttribute("categories", categoryEntities);
 		
 		
 		req.getRequestDispatcher("/channel/video-form.jsp").forward(req, resp);
@@ -39,9 +39,9 @@ public class VideoFormController extends HttpServlet{
 		try {
 			
 			CategoryDAO categoryDAO = new CategoryDAO();
-			List<CategoryEnitity> categoryEnitities = categoryDAO.getList();
+			List<CategoryEntity> categoryEntities = categoryDAO.getList();
 			
-			req.setAttribute("categories", categoryEnitities);
+			req.setAttribute("categories", categoryEntities);
 			
 			VideoFormBean bean = new VideoFormBean();
 //			Convert dữ liệu nguyên thuỷ (số, chuỗi)

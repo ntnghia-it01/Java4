@@ -7,9 +7,9 @@ import com.fpoly.java4.beans.VideoFormBean;
 import com.fpoly.java4.dao.CategoryDAO;
 import com.fpoly.java4.dao.UserDAO;
 import com.fpoly.java4.dao.VideoDAO;
-import com.fpoly.java4.entities.CategoryEnitity;
+import com.fpoly.java4.entities.CategoryEntity;
 import com.fpoly.java4.entities.UserEntity;
-import com.fpoly.java4.entities.VideoEnity;
+import com.fpoly.java4.entities.VideoEntity;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,12 +32,12 @@ public class VideoServices {
 			bean.getImageForm().write(pathContextImage);
 			
 //			Chuyển dữ liệu từ bean => Entity
-			VideoEnity videoEnity = new VideoEnity();
-			videoEnity.setTitle(bean.getTitle());
-			videoEnity.setDescription(bean.getDesc());
-			videoEnity.setVideoURL(pathVideo);
-			videoEnity.setThumnailURL(pathImage);
-			videoEnity.setStatus(bean.getStatus());
+			VideoEntity videoEntity = new VideoEntity();
+			videoEntity.setTitle(bean.getTitle());
+			videoEntity.setDescription(bean.getDesc());
+			videoEntity.setVideoURL(pathVideo);
+			videoEntity.setThumnailURL(pathImage);
+			videoEntity.setStatus(bean.getStatus());
 			
 //			Lấy được đối tượng user đang đăng nhập từ db
 //			=> Thêm vào userEntity
@@ -57,18 +57,18 @@ public class VideoServices {
 			UserDAO userDAO = new UserDAO();
 //			Integer.parseInt(userID) => Có thể có lỗi xảy ra không?
 			UserEntity userEntity = userDAO.getUserById(Integer.parseInt(userID));
-			videoEnity.setUserEntity(userEntity);
+			videoEntity.setUserEntity(userEntity);
 			
 //			Lấy CategoryEntity từ categoryID => Để thêm vào VideoEntity
 //			Có categoryID => Form => Bean 
 //			bean.getCategory(); => ID
 			CategoryDAO categoryDAO = new CategoryDAO();
-			CategoryEnitity categoryEnitity = categoryDAO.getCategoryById(bean.getCategory());
-			videoEnity.setCategoryEnitity(categoryEnitity);
+			CategoryEntity categoryEntity = categoryDAO.getCategoryById(bean.getCategory());
+			videoEntity.setCategoryEnitity(categoryEntity);
 			
 //			Tương tác vào DB => DAO
 			VideoDAO videoDAO = new VideoDAO();
-			return videoDAO.create(videoEnity);
+			return videoDAO.create(videoEntity);
 			
 		} catch (Exception e) { 
 			e.printStackTrace();
