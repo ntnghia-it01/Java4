@@ -49,7 +49,20 @@
 			      		height="70"/>
 			      </td>
 			      <td>${video.statusString}</td>
-			      <td>@mdo</td>
+			      <td>
+			      <!-- Thêm 2 nút sửa và xoá video -->
+			      <!-- Nút sửa -->
+			      	<a class="btn btn-primary" href="${pageContext.request.contextPath}/channel/video-form?id=${video.id}">Sửa</a>
+			      <!-- Xoá -> MVC  -->
+			      <!-- form phương thức post có 1 ô input type hidden để lưu trữ id khi submit -->
+			      	<form method="POST"
+			      		action="${pageContext.request.contextPath}/channel/video-delete">
+			      		<input type="hidden" name="id" value="${video.id}"/>
+			      		<input type="submit" value="Xoá" class="btn btn-danger"/>
+			      	</form>
+			      <!-- Xoá ?action=delete -->
+			      <!-- Sửa ?action=edit -->
+			      </td>
 			    </tr>
 		  	</c:forEach>
 		  </tbody>
