@@ -8,10 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
 	<div class="container">
-		<a class="btn btn-primary mt-3 mb-3">Thêm video</a>
+		<a href="${pageContext.request.contextPath}/channel/video-form" class="btn btn-primary mt-3 mb-3">Thêm video</a>
 		<table class="table">
 		  <thead>
 		    <tr>
@@ -32,13 +33,13 @@
 			      <td>${video.categoryEntity.name}</td>
 			      <td>
 			      	<video 
-			      		width="100" 
-			      		height="70" 
+			      		width="300" 
+			      		height="200" 
 			      		controls 
 			      		poster="${pageContext.request.contextPath}${video.thumnailURL}">
 					  <source 
 					  	src="${pageContext.request.contextPath}${video.videoURL}" 
-					  	type="video/*">
+					  	type="video/mp4">
 					</video>
 			      </td>
 			      <td>
@@ -54,5 +55,6 @@
 		  </tbody>
 		</table>
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>

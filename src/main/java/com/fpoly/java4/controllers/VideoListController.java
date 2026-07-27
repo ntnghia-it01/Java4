@@ -30,6 +30,6 @@ public class VideoListController extends HttpServlet{
 		
 		req.setAttribute("videos", videoEntities);
 		
-		req.getRequestDispatcher("/channel/videos").forward(req, resp);
+		req.getRequestDispatcher("/channel/videos.jsp").forward(req, resp);
 	}
 }
