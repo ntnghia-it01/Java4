@@ -15,7 +15,7 @@
     <div class="container">
     	<div class="col-6 offset-3">
     		<form method="post"
-    			action="${pageContext.request.contextPath}/channel/video-form"
+    			action="${pageContext.request.contextPath}/channel/video-form${bean.id == 0 ? '' : '?id='.concat(bean.id)}"
     			enctype="multipart/form-data">
     			<div class="mb-3">
 				  <label class="form-label">Tiêu đề</label>
@@ -66,7 +66,7 @@
 					<small class="text-danger">${bean.errors.errStatus}</small>
 				</div>
 				<small class="text-danger">${error}</small>
-				<input value="Thêm video" class="btn btn-primary" type="submit">
+				<input value="${bean.id > 0 ? 'Sửa video' : 'Thêm video'}" class="btn btn-primary" type="submit">
     		</form>
     	</div>
     </div>

@@ -1,5 +1,8 @@
 package com.fpoly.java4.services;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLDataException;
 import java.util.Date;
 
@@ -71,6 +74,99 @@ public class VideoServices {
 			VideoDAO videoDAO = new VideoDAO();
 			return videoDAO.create(videoEntity);
 			
+		} catch (Exception e) { 
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+//	Thực hiện CV của chức năng sửa     
+//	- Ở doGet sẽ lấy thông tin video từ id ở url và userId
+//    - Nếu TH có dữ liệu => Chuyển VideoEntity qua VideoBeans 
+//	=> Gửi qua ip để hiển thị lên các ô input tương ứng
+//    - Nếu TH không có dữ liệu => Quay về trang danh sách
+	
+	public VideoFormBean getBeansByIdAndChannelId(String videoId, HttpServletRequest request) {
+		try {	
+			int userId = Integer.parseInt(Utils.getCookieByName("userId", request));
+			VideoDAO videoDAO = new VideoDAO();
+			VideoEntity videoEntity = videoDAO
+					.getVideoByChannelAndId(userId, Integer.parseInt(videoId));
+			if(videoEntity != null) {
+//				Convert dữ liệu từ Entity qua Beans 
+				VideoFormBean bean = new VideoFormBean();
+				bean.setId(videoEntity.getId());
+				bean.setTitle(videoEntity.getTitle());
+				bean.setDesc(videoEntity.getDescription());
+				bean.setCategory(videoEntity.getCategoryEntity().getId());
+				bean.setStatus(videoEntity.getStatus());
+				
+				return bean;
+			}
+		} catch (Exception e) { 
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public boolean updateVideo(VideoFormBean bean, HttpServletRequest request) {
+		try {	
+			int userId = Integer.parseInt(Utils.getCookieByName("userId", request));
+			VideoDAO videoDAO = new VideoDAO();
+			VideoEntity videoEntity = videoDAO
+					.getVideoByChannelAndId(userId, bean.getId());
+			if(videoEntity != null) {
+//				Kiểm tra user có cập nhật lại video hay không?
+//				Nếu có thực hiện thêm video vào project
+//				Và xoá video cũ trong project 
+				String pathVideo = videoEntity.getVideoURL();
+				if(bean.getVideoForm() != null) {
+//					Thêm video vào project 
+					String extVideo = bean.getVideoForm().getContentType().split("/")[1]; 
+					String fileNameVideo = String.valueOf(new Date().getTime()); 
+					pathVideo =  "/assets/videos/" + fileNameVideo + "." + extVideo; // Lưu DB 
+					String pathContextVideo = request.getServletContext().getRealPath(pathVideo);
+					bean.getVideoForm().write(pathContextVideo);
+					
+//					Xoá video cũ khỏi project 
+					String videoFile = request.getServletContext().getRealPath(videoEntity.getVideoURL());
+					Path filePathVideo = Paths.get(videoFile);
+					Files.delete(filePathVideo);
+				}
+				String pathImage = videoEntity.getThumnailURL();
+				if(bean.getImageForm() != null) {
+//					Thêm ảnh vào project
+					String extImage = bean.getImageForm().getContentType().split("/")[1]; 
+					String fileNameImage = String.valueOf(new Date().getTime()); 
+					pathImage =  "/assets/images/" + fileNameImage + "." + extImage; // Lưu DB
+					String pathContextImage = request.getServletContext().getRealPath(pathImage);
+					bean.getImageForm().write(pathContextImage);
+//					Xoá ảnh vào project
+					String imageFile = request.getServletContext().getRealPath(videoEntity.getThumnailURL());
+					Path filePathImage = Paths.get(imageFile);
+					Files.delete(filePathImage);
+					
+//					image\abc.png => Windows 
+//					image/abc.png => MacOS
+				}
+//				Convert dữ liệu ở bean vào entity
+				VideoEntity videoEntitySaveDB = new VideoEntity();
+				videoEntitySaveDB.setId(bean.getId());
+				videoEntitySaveDB.setTitle(bean.getTitle());
+				videoEntitySaveDB.setDescription(bean.getDesc());
+				videoEntitySaveDB.setThumnailURL(pathImage);
+				videoEntitySaveDB.setVideoURL(pathVideo);
+				videoEntitySaveDB.setStatus(bean.getStatus());
+				
+//				videoEntitySaveDB.setCategoryEntity(null)
+				CategoryDAO categoryDAO = new CategoryDAO();
+				CategoryEntity categoryEntity = categoryDAO.getCategoryById(bean.getCategory());
+				videoEntitySaveDB.setCategoryEntity(categoryEntity);
+				
+				videoEntitySaveDB.setUserEntity(videoEntity.getUserEntity());
+				
+				return videoDAO.update(videoEntitySaveDB);
+			}
 		} catch (Exception e) { 
 			e.printStackTrace();
 		}

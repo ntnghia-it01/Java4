@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class VideoFormBean {
+	private int id = 0;
 	private String title;
 	private String desc;
 	private int category;
@@ -44,19 +45,23 @@ public class VideoFormBean {
 //		Video
 //		- Phải đúng định dạng video 
 //		- Dung lượng không quá 1GB
-		if(!this.videoForm.getContentType().startsWith("video/")) {
-			errors.put("errVideo", "Nội dung tải lên phải là video");
-		}else if(this.videoForm.getSize() > 1024 * 1024 * 1024) {
-			errors.put("errVideo", "Nội dung tải lên không được quá 10GB");
+		if(id == 0) {
+			if(!this.videoForm.getContentType().startsWith("video/")) {
+				errors.put("errVideo", "Nội dung tải lên phải là video");
+			}else if(this.videoForm.getSize() > 1024 * 1024 * 1024) {
+				errors.put("errVideo", "Nội dung tải lên không được quá 10GB");
+			}
 		}
 		
 //		Image
 //		- Phải đúng định dạng ảnh
 //		- Dung lượng ảnh không quá 5MB
-		if(!this.imageForm.getContentType().startsWith("image/")) {
-			errors.put("errImage", "Nội dung tải lên phải là ảnh");
-		}else if(this.imageForm.getSize() > 1024 * 1024 * 5) {
-			errors.put("errImage", "Nội dung tải lên không được quá 5MB");
+		if(id == 0) {
+			if(!this.imageForm.getContentType().startsWith("image/")) {
+				errors.put("errImage", "Nội dung tải lên phải là ảnh");
+			}else if(this.imageForm.getSize() > 1024 * 1024 * 5) {
+				errors.put("errImage", "Nội dung tải lên không được quá 5MB");
+			}
 		}
 		
 		return errors;
