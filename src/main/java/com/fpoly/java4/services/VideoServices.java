@@ -4,13 +4,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLDataException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import com.fpoly.java4.beans.VideoFormBean;
 import com.fpoly.java4.dao.CategoryDAO;
+import com.fpoly.java4.dao.ChannelFollowDAO;
 import com.fpoly.java4.dao.UserDAO;
 import com.fpoly.java4.dao.VideoDAO;
 import com.fpoly.java4.entities.CategoryEntity;
+import com.fpoly.java4.entities.ChannelFollowEntity;
 import com.fpoly.java4.entities.UserEntity;
 import com.fpoly.java4.entities.VideoEntity;
 import com.fpoly.java4.utils.Utils;
@@ -171,6 +177,58 @@ public class VideoServices {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public List<VideoEntity> getVideoHomeAfterLogin(HttpServletRequest request){
+		List<VideoEntity> videoEntities = new ArrayList<VideoEntity>();
+		try {
+			int userId = Integer.parseInt(Utils.getCookieByName("userId", request));
+			
+			ChannelFollowDAO channelFollowDAO = new ChannelFollowDAO();
+			
+			List<ChannelFollowEntity> channelFollowEntities = channelFollowDAO
+					.getList(userId);
+			
+			
+			
+			List<VideoEntity> videoFollowEntities = new ArrayList<VideoEntity>();
+			
+			for(ChannelFollowEntity channelFollowEntity : channelFollowEntities) {
+				
+				List<VideoEntity> videoEntitiesChannel = channelFollowEntity
+						.getChannelEntity() 
+						.getVideoEntities();
+				
+				videoFollowEntities.addAll(videoEntitiesChannel);
+			}
+//			videoFollowEntities => danh sách tất cả video mà user đã follow channel
+			
+//			Danh sách hiện tại đang sắp xếp theo channel 
+			
+//			Sắp xếp danh sách videoFollowEntities video theo id giảm dần
+			
+			Collections.sort(videoFollowEntities, new Comparator<VideoEntity>() {
+				@Override
+				public int compare(VideoEntity videoEntity1, VideoEntity videoEntity2) {
+					// TODO Auto-generated method stub
+					return videoEntity2.getId() > videoEntity1.getId() ? 1 : 0;
+				}
+			});
+			
+//			Lọc video công khai của channel đã follow
+			for(VideoEntity videoEntity : videoFollowEntities) {
+				if(videoEntity.getStatus() == 3) videoEntities.add(videoEntity); 
+			}
+			
+//			Danh sách các video còn lại 
+//			Viết thêm 1 func ở VideoDAO 
+//			Tất cả video có channel_id khác channelFollowEntities.channe_id 
+//			Và status == 3 sắp xếp theo id giảm đần 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return videoEntities;
 	}
 }
 // 1 - User
