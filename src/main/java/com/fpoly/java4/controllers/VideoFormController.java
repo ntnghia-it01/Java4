@@ -50,6 +50,10 @@ public class VideoFormController extends HttpServlet{
 			req.setAttribute("bean", bean);
 		}
 		
+		VideoServices videoServicesTest = new VideoServices();
+		System.out.printf("So luong video follow %d\n", videoServicesTest
+				.getVideoHomeAfterLogin(req).size());
+		
 		req.getRequestDispatcher("/channel/video-form.jsp").forward(req, resp);
 	}
 	

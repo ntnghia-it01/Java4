@@ -145,4 +145,41 @@ public class VideoDAO {
 			return false;
 		}
 	}
+	
+//	Danh sách các video còn lại của các channel mà user không follow
+//	Viết thêm 1 func ở VideoDAO 
+//	Tất cả video có channel_id khác channelFollowEntities.channe_id 
+//	Và status == 3 sắp xếp theo id giảm đần 
+	
+//	Có được danh sách id của các channel mà user đang follow ???
+//	channel_id  mà user đang follow 
+//	=> Danh sách video không thuộc các channel_id này => Không follow
+//	video {id, channel_id,....}
+	
+//	SELECT * FROM video WHERE status = 3 AND channel_id not in 
+//	(SELECT channel_id FROM channel_follow WHERE user_id = ?) ORDER BY id DESC 
+	
+//	SELECT * FROM video WHERE status = 3 AND channel_id != channel1 AND .....
+	
+	public List<VideoEntity> getVideoNotFollowList(int userId){
+		List<VideoEntity> videoEnitities = new ArrayList<VideoEntity>();
+		
+		try {
+			EntityManagerFactory factory = Persistence.createEntityManagerFactory("dbConnect");
+			EntityManager manager = factory.createEntityManager();
+			
+			String sql = "SELECT * FROM video WHERE approval_status = 3 AND channel_id NOT IN "
+					+ "(SELECT channel_follow.channel_id FROM channel_follow WHERE user_id = ?) ORDER BY id DESC"; 
+			
+			Query query = manager.createNativeQuery(sql, VideoEntity.class);
+			query.setParameter(1, userId);
+			
+			videoEnitities = query.getResultList();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return videoEnitities;
+	}
 }

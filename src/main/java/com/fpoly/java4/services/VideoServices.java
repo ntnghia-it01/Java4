@@ -220,10 +220,9 @@ public class VideoServices {
 				if(videoEntity.getStatus() == 3) videoEntities.add(videoEntity); 
 			}
 			
-//			Danh sách các video còn lại 
-//			Viết thêm 1 func ở VideoDAO 
-//			Tất cả video có channel_id khác channelFollowEntities.channe_id 
-//			Và status == 3 sắp xếp theo id giảm đần 
+			VideoDAO videoDAO = new VideoDAO();
+//			Lấy danh sách video còn lại mà user chưa follow 
+			videoEntities.addAll(videoDAO.getVideoNotFollowList(userId));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
